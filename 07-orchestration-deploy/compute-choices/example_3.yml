@@ -1,0 +1,14 @@
+resources:
+  jobs:
+    daily_enrich:
+      performance_target: STANDARD           # PERFORMANCE_OPTIMIZED for faster start
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "4"
+            dependencies: ["./dist/*.whl", "rapidfuzz==3.9.7"]
+      tasks:
+        - task_key: enrich
+          environment_key: default
+          spark_python_task: { python_file: ../src/enrich.py }
+          disable_auto_optimization: true    # no automatic retries on serverless

@@ -1,0 +1,24 @@
+resources:
+  jobs:
+    nightly_load:
+      name: nightly_load
+      parameters:
+        - name: run_date
+          default: "{{job.start_time.iso_date}}"
+      tasks:
+        - task_key: list_tables
+          notebook_task: { notebook_path: ../src/list_tables.py }
+        - task_key: load_each
+          depends_on: [{ task_key: list_tables }]
+          for_each_task:
+            inputs: "{{tasks.list_tables.values.tables}}"
+            concurrency: 4
+            task:
+              task_key: load_one
+              notebook_task:
+                notebook_path: ../src/load_table.py
+                base_parameters: { table: "{{input}}" }
+        - task_key: notify_failure
+          depends_on: [{ task_key: load_each }]
+          run_if: AT_LEAST_ONE_FAILED
+          notebook_task: { notebook_path: ../src/notify.py }

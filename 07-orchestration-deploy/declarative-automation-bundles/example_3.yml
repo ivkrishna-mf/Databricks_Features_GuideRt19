@@ -1,0 +1,25 @@
+bundle:
+  name: orders_platform
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    default: dev
+
+artifacts:
+  orders_lib:
+    type: whl
+    path: .
+
+targets:
+  dev:
+    mode: development          # prefixes names, pauses schedules
+    default: true
+    workspace: { host: https://dev.cloud.databricks.com }
+  prod:
+    mode: production
+    workspace: { host: https://prod.cloud.databricks.com, root_path: /Workspace/Shared/.bundle/orders }
+    variables: { catalog: main }
+    run_as: { service_principal_name: "sp-orders-deploy" }

@@ -1,0 +1,13 @@
+resources:
+  jobs:
+    nightly_load:
+      email_notifications:
+        on_failure: [data-oncall@acme.com]
+        on_duration_warning_threshold_exceeded: [data-oncall@acme.com]
+      health:
+        rules:
+          - metric: RUN_DURATION_SECONDS
+            op: GREATER_THAN
+            value: 3600
+      webhook_notifications:
+        on_failure: [{ id: "<notification-destination-id>" }]

@@ -1,0 +1,15 @@
+# resources/orders_pipeline.yml
+resources:
+  pipelines:
+    orders:
+      name: orders_${bundle.target}
+      catalog: ${var.catalog}
+      schema: orders
+      serverless: true
+      libraries:
+        - glob: { include: ../src/pipelines/** }
+
+# Shell:
+#   databricks bundle validate -t prod
+#   databricks bundle deploy   -t prod
+#   databricks bundle run orders -t prod

@@ -1,0 +1,11 @@
+resources:
+  database_instances:
+    app_db:
+      name: app-db
+      capacity: CU_1
+  database_catalogs:
+    app_catalog:
+      database_instance_name: ${resources.database_instances.app_db.name}
+      name: app_catalog
+      database_name: databricks_postgres
+      create_database_if_not_exists: true

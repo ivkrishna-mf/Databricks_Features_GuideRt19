@@ -1,0 +1,10 @@
+resources:
+  dashboards:
+    sales_overview:
+      display_name: "Sales overview"
+      file_path: ../src/dashboards/sales_overview.lvdash.json
+      warehouse_id: ${var.bi_warehouse_id}
+      embed_credentials: true
+      permissions:
+        - group_name: sales_team
+          level: CAN_VIEW

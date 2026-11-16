@@ -1,0 +1,17 @@
+resources:
+  pipelines:
+    sqlserver_ingest:
+      name: sqlserver_ingest
+      catalog: main
+      schema: bronze_erp
+      ingestion_definition:
+        ingestion_gateway_id: ${resources.pipelines.erp_gateway.id}
+        objects:
+          - table:
+              source_catalog: erp
+              source_schema: dbo
+              source_table: customers
+              destination_catalog: main
+              destination_schema: bronze_erp
+              table_configuration:
+                scd_type: SCD_TYPE_2

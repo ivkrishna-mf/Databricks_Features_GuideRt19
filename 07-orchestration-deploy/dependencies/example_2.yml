@@ -1,0 +1,10 @@
+resources:
+  pipelines:
+    orders:
+      serverless: true
+      environment:
+        dependencies:
+          - ../dist/orders_lib-1.4.0-py3-none-any.whl
+          - pydantic==2.9.2
+      libraries:
+        - glob: { include: ../src/pipelines/** }

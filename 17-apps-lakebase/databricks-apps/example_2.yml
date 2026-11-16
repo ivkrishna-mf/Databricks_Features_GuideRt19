@@ -1,0 +1,6 @@
+command: ["streamlit", "run", "app.py"]
+env:
+  - name: WAREHOUSE_ID
+    valueFrom: sql-warehouse          # resource key declared for the app
+  - name: SERVING_ENDPOINT
+    valueFrom: serving-endpoint

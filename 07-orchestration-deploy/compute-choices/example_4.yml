@@ -1,0 +1,8 @@
+job_clusters:
+        - job_cluster_key: etl
+          new_cluster:
+            spark_version: 19.x-scala2.13     # pick the exact key your workspace lists
+            node_type_id: i3.2xlarge
+            data_security_mode: USER_ISOLATION   # standard access mode
+            autoscale: { min_workers: 2, max_workers: 8 }
+            spark_conf: { "spark.sql.shuffle.partitions": "auto" }

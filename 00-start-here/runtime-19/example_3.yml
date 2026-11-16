@@ -1,0 +1,9 @@
+# resources/job.yml (serverless environment for a job task)
+environments:
+  - environment_key: default
+    spec:
+      environment_version: "4"     # use the version your workspace offers
+      dependencies:
+        - plotly==5.24.1
+        - psycopg2-binary==2.9.10
+        - ./dist/*.whl
